@@ -2,7 +2,7 @@ import { fileService } from '#/service';
 import { toCamelCase, toConstantCase, toInstanceName } from '#/utils';
 
 interface InputData {
-  name: string; 
+  name: string;
 }
 
 export const generateCron = async ({ name }: InputData) => {
@@ -11,21 +11,15 @@ export const generateCron = async ({ name }: InputData) => {
   const keyName = toConstantCase(name);
 
   const variables = {
-    name,
     className,
     instanceName,
-    keyName
+    keyName,
+    name
   };
 
   console.info(variables);
 
-  const files = [
-    'job.ts',
-    'queue.ts',
-    'route.ts',
-    'index.ts'
-  ];
+  const files = ['job.ts', 'queue.ts', 'route.ts', 'index.ts'];
 
-  await fileService.generateTemplate({name, files, variables, templateFolder: 'cron'});
+  await fileService.generateTemplate({ files, name, templateFolder: 'cron', variables });
 };
- 

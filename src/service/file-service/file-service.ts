@@ -1,5 +1,6 @@
 import fs from 'fs-extra';
 import path from 'path';
+
 import type { CliService } from '../cli-service/cli-service';
 
 interface Variables {
@@ -14,9 +15,7 @@ export class FileService {
   private templateDir: string;
   private destDir: string;
 
-  constructor(
-    private readonly cliService: CliService
-  ) {
+  constructor(private readonly cliService: CliService) {
     this.templateDir = path.resolve(__dirname, '../../../templates');
   }
 
@@ -27,10 +26,10 @@ export class FileService {
    * @param variables - Mapa de variáveis a serem substituídas
    */
   public async generateTemplate({
-    name,
     files,
-    variables,
-    templateFolder
+    name,
+    templateFolder,
+    variables
   }: {
     name: string;
     files: string[];
@@ -38,23 +37,23 @@ export class FileService {
     templateFolder: string;
   }): Promise<void> {
     this.destDir = path.join(process.cwd(), `src/useCases/${name}`);
-  
+
     for (const file of files) {
       const fileName = file === 'index.ts' ? file : `${name}.${file}`;
       const templatePath = path.join(this.templateDir, templateFolder, `${file}`);
       const destPath = path.join(this.destDir, fileName);
-      try { 
+      try {
         let content = await fs.readFile(templatePath, 'utf8');
 
-        console.log()
- 
+        console.log();
+
         content = this.replacePlaceholders(content, variables);
- 
+
         await fs.outputFile(destPath, content);
         this.cliService.success(`Arquivo criado: ${destPath}`);
       } catch (err) {
         this.cliService.error(`Erro ao processar o arquivo: ${file}`);
-      } 
+      }
     }
 
     await this.cliService.done();
@@ -65,10 +64,10 @@ export class FileService {
    * @param content - O conteúdo do arquivo com as placeholders
    * @param variables - Mapa de placeholders e seus valores de substituição
    * @returns O conteúdo com as placeholders substituídas
-     */
+   */
   private replacePlaceholders(content: string, variables: Variables): string {
     return content.replace(/<%=\s*(\w+)\s*%>/g, (match, placeholderName) => {
-        return variables[placeholderName] !== undefined ? variables[placeholderName] : match;
+      return variables[placeholderName] !== undefined ? variables[placeholderName] : match;
     });
   }
 }

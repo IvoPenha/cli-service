@@ -1,11 +1,10 @@
-const toCamelCase = (str: string) => { 
+const toCamelCase = (str: string) => {
   return str
     .toLowerCase()
     .split('-')
-    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
     .join('');
 };
-
 
 const toInstanceName = (str: string) => {
   const camelCased = toCamelCase(str);
@@ -18,6 +17,5 @@ const toConstantCase = (str: string) => {
     .replace(/-/g, '_') // Substitui - por _
     .toUpperCase(); // Converte tudo para maiúsculas
 };
-
 
 export { toCamelCase, toInstanceName, toConstantCase };
