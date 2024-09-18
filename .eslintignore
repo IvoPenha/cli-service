@@ -1,0 +1,7 @@
+*.config.js
+node_modules
+dist
+scripts/release.js
+scripts/*.js
+templates
+templates/**/*

@@ -1,0 +1,43 @@
+{
+  "editor.rulers": [150],
+  "editor.codeActionsOnSave": {
+    "source.fixAll": "always"
+  },
+  "typescript.preferences.preferTypeOnlyAutoImports": true,
+  "[json]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "json.schemas": [
+    {
+      "fileMatch": ["swagger.json", "openapi*.json"],
+      "url": "https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/schemas/v3.1/schema.json"
+    }
+  ],
+  "workbench.colorCustomizations": {
+    "activityBar.activeBackground": "#3f2236",
+    "activityBar.background": "#3f2236",
+    "activityBar.foreground": "#e7e7e7",
+    "activityBar.inactiveForeground": "#e7e7e799",
+    "activityBarBadge.background": "#422c74",
+    "activityBarBadge.foreground": "#e7e7e7",
+    "commandCenter.border": "#e7e7e799",
+    "sash.hoverBorder": "#3f2236",
+    "statusBar.background": "#361f2f",
+    "statusBar.foreground": "#e7e7e7",
+    "statusBarItem.hoverBackground": "#3f2236",
+    "statusBarItem.remoteBackground": "#361f2f",
+    "statusBarItem.remoteForeground": "#e7e7e7",
+    "titleBar.activeBackground": "#361f2f",
+    "titleBar.activeForeground": "#e7e7e7",
+    "titleBar.inactiveBackground": "#361f2f8e",
+    "titleBar.inactiveForeground": "#e7e7e799"
+  },
+  "conventionalCommits.scopes": [
+    "adiciona link de webhook no retorno da rota de integração"
+  ],
+  "cSpell.words": [
+    "pagarme",
+    "Pagarme"
+  ]
+}

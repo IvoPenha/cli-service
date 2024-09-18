@@ -1,0 +1,80 @@
+{
+  "root": true,
+  "env": {
+    "es6": true,
+    "node": true,
+    "jest": true
+  },
+  "globals": {},
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaVersion": "latest",
+    "sourceType": "module"
+  },
+  "plugins": ["@typescript-eslint/eslint-plugin", "import-helpers", "prettier", "perfectionist"],
+  "extends": ["plugin:import/errors", "plugin:@typescript-eslint/recommended"],
+  "rules": {
+    "prettier/prettier": "error",
+    "no-console": "warn",
+    "camelcase": "warn",
+    "require-await": "off",
+    "no-return-await": "warn",
+    "@typescript-eslint/interface-name-prefix": "off",
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "@typescript-eslint/no-empty-function": "off",
+    "@typescript-eslint/explicit-module-boundary-types": "off",
+    "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/ban-ts-comment": "off",
+    "@typescript-eslint/no-this-alias": "off",
+    "@typescript-eslint/no-unused-vars": [
+      "warn",
+      {
+        "varsIgnorePattern": "^_",
+        "argsIgnorePattern": "^_"
+      }
+    ],
+    "import/no-unresolved": "error",
+    "import-helpers/order-imports": [
+      "warn",
+      {
+        "newlinesBetween": "always",
+        "alphabetize": {
+          "order": "asc",
+          "ignoreCase": true
+        },
+        "groups": ["module", "/#/config/", "/^#company/", "/^#/services/", "/^#/useCases/", "/^#/", "/^src/", "parent", ["sibling", "index"]]
+      }
+    ],
+    "@typescript-eslint/consistent-type-imports": [
+      "error",
+      {
+        "prefer": "type-imports",
+        "disallowTypeAnnotations": true,
+        "fixStyle": "inline-type-imports"
+      }
+    ],
+    "consistent-return": ["error", { "treatUndefinedAsUnspecified": false }],
+    "no-restricted-exports": ["error", { "restrictDefaultExports": { "direct": true } }],
+    "perfectionist/sort-objects": ["warn", { "type": "alphabetical", "order": "asc" }],
+    "perfectionist/sort-exports": ["warn", { "type": "alphabetical", "order": "asc" }],
+    "sort-imports": [
+      "error",
+      {
+        "ignoreCase": true,
+        "ignoreDeclarationSort": true,
+        "ignoreMemberSort": false,
+        "allowSeparatedGroups": true
+      }
+    ]
+  },
+  "settings": {
+    "import/parsers": {
+      "@typescript-eslint/parser": [".ts"]
+    },
+    "import/resolver": {
+      "typescript": {
+        "alwaysTryTypes": true
+      }
+    }
+  }
+}
