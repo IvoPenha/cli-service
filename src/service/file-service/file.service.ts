@@ -1,7 +1,6 @@
+import type { CliService } from '#/service/cli-service/cli.service';
 import fs from 'fs-extra';
 import path from 'path';
-
-import type { CliService } from '../cli-service/cli-service';
 
 interface Variables {
   name: string;

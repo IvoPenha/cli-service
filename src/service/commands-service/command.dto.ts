@@ -4,3 +4,8 @@ export type VariantDto = {
   n?: string;
   db?: string;
 };
+
+export enum ECommands {
+  CRUD = 'crud',
+  CRON = 'cron'
+}

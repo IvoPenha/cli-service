@@ -1,13 +1,12 @@
-import type { CliService } from './service/cli-service/cli-service';
-import type { CommandService } from './service/commands-service/command-service';
+import type { CliService, CommandService } from './service/';
 
-export function Program(cliService: CliService, commandService: CommandService) {
+export async function Program(cliService: CliService, commandService: CommandService) {
   const { option, variant } = cliService.start(process.argv);
 
   if (option) {
-    commandService.handleOption(option, variant);
+    await commandService.handleOption(option, variant);
     return;
   }
 
-  commandService.chooseExample();
+  await commandService.chooseExample();
 }

@@ -3,7 +3,7 @@ import figlet from 'figlet';
 import inquirer from 'inquirer';
 import * as ora from 'ora';
 
-import type { PromptDto } from './cli-dto';
+import type { PromptDto } from '#/service/cli-service/cli.dtoce/src/service/cli-service/cli-dto';
 
 export class CliService {
   private loading: boolean = false;
