@@ -3,20 +3,40 @@ import figlet from 'figlet';
 import inquirer from 'inquirer';
 import * as ora from 'ora';
 
-import type { PromptDto } from '#/service/cli-service/cli.dtoce/src/service/cli-service/cli-dto';
+import { Status, type PromptDto } from '#/service/cli-service/cli.dto';
 
 export class CliService {
   private loading: boolean = false;
   private tasks: string[] = [];
   private spinner: any;
 
-  start(proccessArgV: string[]): {
+  constructor() {
+    this.listenForClose();
+  }
+
+  // proccessListener para fechadas forçadas
+  listenForClose() {
+    const signals = ['SIGINT', 'SIGTERM', 'SIGQUIT', 'SIGHUP'];
+    process.on('exit', (protocol) => {
+      !protocol && this.exit(Status.ERROR); 
+    });
+    signals.forEach(signal => {
+      process.on(signal, (protocol?: number) => {
+        if (protocol === 0) return;
+        this.warn(signal);
+        protocol ? this.thanksForUsing() : this.ClosedByForce();
+      });
+    });
+ 
+  }
+
+  start(): {
     option: string;
     variant: {
       [key: string]: string;
     };
   } {
-    console.log(chalk.blue(figlet.textSync('CIS - CLI', { horizontalLayout: 'full' })));
+    this.info(figlet.textSync('CIS - CLI', { horizontalLayout: 'full' }));
     const option = process.argv[2];
 
     // captura as outras opções de variaveis passando o --n ou --name e db ou --dbName
@@ -34,21 +54,41 @@ export class CliService {
   async prompt<T>(prompts: PromptDto[]): Promise<T> {
     return (await inquirer.prompt(prompts as any)) as T;
   }
-
   success(message: string) {
     console.log(chalk.green(message));
   }
   error(message: string) {
     console.log(chalk.red(message));
   }
-  async loadingStart({ task }: { task: string }) {
-    this.spinner = await ora.default(`Carregando ${task}`).start();
-    this.loading = true;
+  warn(message: string) {
+    console.log(chalk.yellow(message));
   }
-  async done() {
-    if (this.loading) {
-      this.spinner.succeed();
-      this.loading = false;
+  info(message: string) {
+    console.log(chalk.blue(message));
+  }
+  close() {
+    process.exit(1);
+  }
+  exit(protocol: number) {
+    if (protocol === Status.SUCCESS) {
+      this.thanksForUsing(); 
     }
+
+    if (protocol === Status.ERROR){
+      this.ClosedByForce(); 
+    }
+
+    this.close();
+  }
+  thanksForUsing() {
+    this.info('Everything is fine, thanks for using');
+    this.success,(figlet.textSync('CIS You Next time', { horizontalLayout: 'full' }));     
+  }
+  ClosedByForce() {
+    this.error('\n Closed by force');
+    this.warn(figlet.textSync('CIS You Next time', { horizontalLayout: 'full' })); 
+  }
+  async done() { 
+    this.exit(Status.SUCCESS);
   }
 }

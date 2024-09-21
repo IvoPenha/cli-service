@@ -1,4 +1,5 @@
 const toCamelCase = (str: string) => {
+  if (!str.includes('-')) return str.charAt(0).toUpperCase() + str.slice(1);
   return str
     .toLowerCase()
     .split('-')
@@ -18,4 +19,8 @@ const toConstantCase = (str: string) => {
     .toUpperCase(); // Converte tudo para maiúsculas
 };
 
-export { toCamelCase, toInstanceName, toConstantCase };
+const isValidString = (str: string) : string | null => {
+  return !!str && (str?.trim()?.length || 0) > 0 ? str : null;
+}
+
+export { toCamelCase, toInstanceName, toConstantCase, isValidString };
