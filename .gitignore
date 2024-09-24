@@ -32,8 +32,7 @@ yarn-error.log*
 
 # custom
 *_remove*
-Cópia*
-Copy*
+Cópia* 
 
 *.rar
 *.zip

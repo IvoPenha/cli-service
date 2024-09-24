@@ -99,8 +99,7 @@ export class CommandService {
     }
   }
 
-  async handleCrud(variant: Variant = {}): Promise<void> {
-    console.count('handleCrud');
+  async handleCrud(variant: Variant = {}): Promise<void> { 
     if (!variant.name || !variant.dbName) {
       const promptsReturn = await this.getPromptsForCrud(variant); 
       this.validateName(promptsReturn?.name);
@@ -125,8 +124,7 @@ export class CommandService {
         dirPath: promptsReturn.dirPath, 
       });
       return;
-    }
-    console.log('variant', variant);
+    } 
     await copyFromPath({
       destPath: variant.destPath,
       dirPath: variant.dirPath, 
